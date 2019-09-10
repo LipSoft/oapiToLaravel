@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/LipSoft/oapiToLaravel/issues"
   },
-  "homepage": "https://github.com/LipSoft/oapiToLaravel#readme"
+  "homepage": "https://github.com/LipSoft/oapiToLaravel#readme",
+  "dependencies": {
+    "yaml": "^1.6.0"
+  }
 }
