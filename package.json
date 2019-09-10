@@ -1,0 +1,24 @@
+{
+  "name": "oapiToLaravel",
+  "version": "1.0.0",
+  "description": "Laravel Generator from OpenApi",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LipSoft/oapiToLaravel.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LipSoft/oapiToLaravel/issues"
+  },
+  "homepage": "https://github.com/LipSoft/oapiToLaravel#readme"
+}
