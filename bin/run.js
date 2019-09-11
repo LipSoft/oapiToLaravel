@@ -8,9 +8,9 @@ const controllerTemplate = loadTemplate('../../build/templates/oapiToControllers
 const imported = require('../build/imported/fromMysql.json')
 
 oapiToModels(imported).forEach(schema => {
-  common.saveFile(`../../dist/oapiToModels/${schema.name}.php`, render(modelTemplate, schema))
+  common.saveFile(`../../dist/oapiToModels/${common.pascalCase(schema.name)}.php`, render(modelTemplate, schema))
 })
 
 oapiToControllers(imported).forEach(schema => {
-  common.saveFile(`../../dist/oapiToControllers/${schema.name}.php`, render(controllerTemplate, schema))
+  common.saveFile(`../../dist/oapiToControllers/${common.pascalCase(schema.name)}Controller.php`, render(controllerTemplate, schema))
 })

@@ -7,81 +7,55 @@ use App\{{{name}}};
 
 class {{{name}}}Controller extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
-    {
-        //
-        ${{{name}}} = {{{name}}}::all();        
-        return ${{{name}}};  
+    {      
+        return {{{name}}}::all();  
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('{{{name}}}.create', [ ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        return {{{name}}}::find($id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        return view('{{{name}}}.edit', ['{{{name}}}' => {{{name}}}::find($id) ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function store(Request $request)
+    {
+        $input = $request->all();        
+        ${{{name}}} = new {{{name}}};
+        //${{{name}}}->update($request->all());
+        {{#fields}}
+        if (isset($input['{{{field}}}'])) ${{{name}}}->{{{field}}} = $input['{{{field}}}'];                        
+        {{/fields}}
+        
+        ${{{name}}}->save();
+        return ${{{name}}};
+    }
+    
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        //update with all fields and do array ith isset
+        ${{{name}}} = {{{name}}}::find($id);
+        //${{{name}}}->update($request->all());
+        {{#fields}}
+        ${{{name}}}->{{{field}}} = $input['{{{field}}}'];        
+        {{/fields}}
+        ${{{name}}}->save();
+        return ${{{name}}};
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        return {{{name}}}::destroy($id);
     }
 }
