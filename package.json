@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "mocha",
-    "coverage" : "nyc mocha"
+    "coverage": "nyc mocha"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "mocha": "^6.2.0",
     "mustache": "^3.0.3",
     "nyc": "^14.1.1",
+    "oas-validator": "^3.3.1",
     "standart": "^6.1.0",
     "yaml": "^1.6.0"
   }
