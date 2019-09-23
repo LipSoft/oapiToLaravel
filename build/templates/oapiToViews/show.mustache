@@ -1,0 +1,36 @@
+@extends('master')
+
+@section('content')
+
+
+    {{#fields}}
+    <div class="showDiv">
+        <div class="fieldDiv">{{{field}}}:</div>
+        <div class="textDiv">{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%>${{{name}}}->{{{field}}} {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%></div>	    
+    </div>
+    {{/fields}}
+	
+	
+	
+
+	@if(Auth::user()->role_id == 1)
+		<a class="buttonLink" href="{{ URL::action('{{{name}}}Controller@edit', ${{{name}}}->{{{pk}}}) }}">
+			<div class="buttonDiv">Editar</div>
+		</a>
+	@endif
+
+	@if( (Auth::user()->role_id == 1) && (${{{name}}}->{{{pk}}} != 1) )
+		<div class="clearDiv"></div>
+		<form id="deleteForm" action="{{ URL::action('{{{name}}}Controller@destroy', ${{{name}}}->{{{pk}}}) }}" method="POST">
+			<input type="hidden" name="_method" value="delete" />
+			{!! csrf_field() !!}
+			<div class="buttonDiv"><input id="deleteBtn" class="submitInput" type="submit" value="Apagar"></div>
+		</form>
+	@endif
+		
+	<div class="clearDiv"></div>
+	<a class="buttonLink" href="{{ URL::action('{{{name}}}Controller@index') }}">
+		<div class="buttonDiv">Voltar</div>
+	</a>	
+
+@endsection

@@ -18,4 +18,10 @@ class {{name}} extends Model
         {{/hidden}}
         
     ];
+
+    protected $table = '{{name}}';
+    /**
+     * Indicates if the model should be timestamped.
+     */
+    public $timestamps = false;
 }

@@ -1,0 +1,28 @@
+@extends('master')
+
+@section('content')
+	
+	<form action=" {{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{name}}}Controller@update', ${{{name}}}->{{{pk}}}) {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>" method="POST">
+		
+		<input type="hidden" name="_method" value="put" />
+		{!! csrf_field() !!}
+		
+		{{#fields}}
+		<div class="showDiv">
+			<div class="fieldDiv">{{{field}}}:</div>
+			<div class="inputDiv">
+				<input type="text" name="{{{field}}}" value="{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%>old('{{{field}}}') ? old('{{{field}}}') : ''{{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>" size="50" maxlength="50">
+			</div>
+		</div>
+        {{/fields}}
+
+		<div class="buttonDiv"><input class="submitInput" type="submit" value="Guardar"></div>
+
+	</form>
+		
+	<div class="clearDiv"></div>
+	<a class="buttonLink" href=" {{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{name}}}Controller@show', ${{{name}}}->{{{pk}}}) {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>">
+		<div class="buttonDiv">Voltar</div>
+	</a>	
+
+@endsection
