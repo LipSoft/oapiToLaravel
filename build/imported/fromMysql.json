@@ -19,10 +19,20 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "int"
+            "type": "integer"
           },
           "nome": {
-            "type": "varchar"
+            "type": "string"
+          }
+        },
+        "x-ls": {
+          "belongsTo": {
+            "id": {
+              "name": "PRIMARY",
+              "columnName": "id",
+              "referencedTableName": null,
+              "referencedColumnName": null
+            }
           }
         }
       },
@@ -30,22 +40,44 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "int"
+            "type": "integer"
           },
           "nome": {
-            "type": "varchar"
+            "type": "string"
           },
           "tipo_id": {
-            "type": "int"
+            "type": "integer"
           },
           "unidade_it": {
-            "type": "int"
+            "type": "integer"
           },
           "qt_max_mov": {
-            "type": "int"
+            "type": "integer"
           },
           "freq_inv": {
-            "type": "int"
+            "type": "integer"
+          }
+        },
+        "x-ls": {
+          "belongsTo": {
+            "id": {
+              "name": "PRIMARY",
+              "columnName": "id",
+              "referencedTableName": null,
+              "referencedColumnName": null
+            },
+            "tipo_id": {
+              "name": "tipo_fk",
+              "columnName": "tipo_id",
+              "referencedTableName": "tipos",
+              "referencedColumnName": "id"
+            },
+            "unidade_it": {
+              "name": "unidade_fk",
+              "columnName": "unidade_it",
+              "referencedTableName": "unidades",
+              "referencedColumnName": "id"
+            }
           }
         }
       },
@@ -53,13 +85,23 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "int"
+            "type": "integer"
           },
           "nome": {
-            "type": "varchar"
+            "type": "string"
           },
           "unidade": {
-            "type": "varchar"
+            "type": "string"
+          }
+        },
+        "x-ls": {
+          "belongsTo": {
+            "id": {
+              "name": "PRIMARY",
+              "columnName": "id",
+              "referencedTableName": null,
+              "referencedColumnName": null
+            }
           }
         }
       },
@@ -67,16 +109,38 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "int"
+            "type": "integer"
           },
           "caracteristica_id": {
-            "type": "int"
+            "type": "integer"
           },
           "artigo_id": {
-            "type": "int"
+            "type": "integer"
           },
           "valor": {
-            "type": "varchar"
+            "type": "string"
+          }
+        },
+        "x-ls": {
+          "belongsTo": {
+            "id": {
+              "name": "PRIMARY",
+              "columnName": "id",
+              "referencedTableName": null,
+              "referencedColumnName": null
+            },
+            "caracteristica_id": {
+              "name": "caracteristica_fk",
+              "columnName": "caracteristica_id",
+              "referencedTableName": "caracteristicas",
+              "referencedColumnName": "id"
+            },
+            "artigo_id": {
+              "name": "caracterizar_artigos_fk",
+              "columnName": "artigo_id",
+              "referencedTableName": "artigos",
+              "referencedColumnName": "id"
+            }
           }
         }
       },
@@ -84,25 +148,47 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "int"
+            "type": "integer"
           },
           "data": {
-            "type": "datetime"
+            "type": "string"
           },
           "artigo_id": {
-            "type": "int"
+            "type": "integer"
           },
           "local_id": {
-            "type": "int"
+            "type": "integer"
           },
           "qt_prevista": {
-            "type": "int"
+            "type": "integer"
           },
           "qt_actual": {
-            "type": "int"
+            "type": "integer"
           },
           "obs": {
-            "type": "text"
+            "type": "string"
+          }
+        },
+        "x-ls": {
+          "belongsTo": {
+            "id": {
+              "name": "PRIMARY",
+              "columnName": "id",
+              "referencedTableName": null,
+              "referencedColumnName": null
+            },
+            "artigo_id": {
+              "name": "artigo_fk",
+              "columnName": "artigo_id",
+              "referencedTableName": "artigos",
+              "referencedColumnName": "id"
+            },
+            "local_id": {
+              "name": "local_fk",
+              "columnName": "local_id",
+              "referencedTableName": "locais",
+              "referencedColumnName": "id"
+            }
           }
         }
       },
@@ -110,16 +196,32 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "int"
+            "type": "integer"
           },
           "armazem_id": {
-            "type": "int"
+            "type": "integer"
           },
           "nome": {
-            "type": "varchar"
+            "type": "string"
           },
           "descrição": {
-            "type": "varchar"
+            "type": "string"
+          }
+        },
+        "x-ls": {
+          "belongsTo": {
+            "id": {
+              "name": "PRIMARY",
+              "columnName": "id",
+              "referencedTableName": null,
+              "referencedColumnName": null
+            },
+            "armazem_id": {
+              "name": "armazem_fk",
+              "columnName": "armazem_id",
+              "referencedTableName": "armazens",
+              "referencedColumnName": "id"
+            }
           }
         }
       },
@@ -127,28 +229,56 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "int"
+            "type": "integer"
           },
           "e_s": {
             "type": "enum"
           },
           "artigo_id": {
-            "type": "int"
+            "type": "integer"
           },
           "local_id": {
-            "type": "int"
+            "type": "integer"
           },
           "user_id": {
-            "type": "int"
+            "type": "integer"
           },
           "data": {
-            "type": "datetime"
+            "type": "string"
           },
           "qt": {
-            "type": "int"
+            "type": "integer"
           },
           "obs": {
-            "type": "text"
+            "type": "string"
+          }
+        },
+        "x-ls": {
+          "belongsTo": {
+            "id": {
+              "name": "PRIMARY",
+              "columnName": "id",
+              "referencedTableName": null,
+              "referencedColumnName": null
+            },
+            "artigo_id": {
+              "name": "artigos_fk",
+              "columnName": "artigo_id",
+              "referencedTableName": "artigos",
+              "referencedColumnName": "id"
+            },
+            "local_id": {
+              "name": "locais_fk",
+              "columnName": "local_id",
+              "referencedTableName": "locais",
+              "referencedColumnName": "id"
+            },
+            "user_id": {
+              "name": "users_fk",
+              "columnName": "user_id",
+              "referencedTableName": "users",
+              "referencedColumnName": "id"
+            }
           }
         }
       },
@@ -156,10 +286,20 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "int"
+            "type": "integer"
           },
           "nome": {
-            "type": "varchar"
+            "type": "string"
+          }
+        },
+        "x-ls": {
+          "belongsTo": {
+            "id": {
+              "name": "PRIMARY",
+              "columnName": "id",
+              "referencedTableName": null,
+              "referencedColumnName": null
+            }
           }
         }
       },
@@ -167,10 +307,20 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "int"
+            "type": "integer"
           },
           "nome": {
-            "type": "varchar"
+            "type": "string"
+          }
+        },
+        "x-ls": {
+          "belongsTo": {
+            "id": {
+              "name": "PRIMARY",
+              "columnName": "id",
+              "referencedTableName": null,
+              "referencedColumnName": null
+            }
           }
         }
       },
@@ -178,10 +328,20 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "int"
+            "type": "integer"
           },
           "nome": {
-            "type": "varchar"
+            "type": "string"
+          }
+        },
+        "x-ls": {
+          "belongsTo": {
+            "id": {
+              "name": "PRIMARY",
+              "columnName": "id",
+              "referencedTableName": null,
+              "referencedColumnName": null
+            }
           }
         }
       }

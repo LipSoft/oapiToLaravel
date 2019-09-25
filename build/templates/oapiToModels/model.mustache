@@ -19,6 +19,14 @@ class {{name}} extends Model
         
     ];
 
+    {{#belongsTo}}    
+    public function {{{referencedTableName}}}()
+    {
+        return $this->belongsTo('App\{{{referencedTableName}}}');
+    }      
+     
+    {{/belongsTo}}
+
     protected $table = '{{name}}';
     /**
      * Indicates if the model should be timestamped.
