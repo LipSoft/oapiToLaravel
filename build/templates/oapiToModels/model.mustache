@@ -3,6 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+{{#belongsTo}}    
+use App\{{{referencedTableName}}};
+{{/belongsTo}}
+{{#hasMany}}    
+use App\{{{tableName}}};
+{{/hasMany}}
 
 class {{name}} extends Model
 {
@@ -22,11 +28,17 @@ class {{name}} extends Model
     {{#belongsTo}}    
     public function {{{referencedTableName}}}()
     {
-        return $this->belongsTo('App\{{{referencedTableName}}}');
+        return $this->belongsTo('App\{{{referencedTableName}}}','{{{columnName}}}', '{{{referencedColumnName}}}' );
     }      
-     
-    {{/belongsTo}}
 
+    {{/belongsTo}}
+    {{#hasMany}}    
+    public function {{{tableName}}}()
+    {        
+        return $this->hasMany('App\{{{tableName}}}', '{{{columnName}}}', '{{{referencedColumnName}}}');
+    }      
+
+    {{/hasMany}}    
     protected $table = '{{name}}';
     /**
      * Indicates if the model should be timestamped.

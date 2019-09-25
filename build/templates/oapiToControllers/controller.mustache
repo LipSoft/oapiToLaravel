@@ -4,37 +4,73 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\{{{name}}};
+{{#belongsTo}}    
+use App\{{{referencedTableName}}};
+{{/belongsTo}}
+{{#hasMany}}    
+use App\{{{tableName}}};
+{{/hasMany}}
 
 class {{{name}}}Controller extends Controller
 {
 
     public function index()
     {      
-        return {{{name}}}::all();  
+        return {{{name}}}::all()
+        {{#belongsTo}}    
+        ->with('{{{referencedTableName}}}')
+        {{/belongsTo}}
+        {{#hasMany}}           
+        //->with('{{{tableName}}}')
+        {{/hasMany}}
+        ;  
     }
 
     public function create()
     {
-        return view('{{{name}}}.create', [ ]);
+        return view('{{{name}}}.create', [
+{{#belongsTo}} 
+            '{{{referencedTableName}}}' => {{{referencedTableName}}}::all(),
+{{/belongsTo}}
+{{#hasMany}}   
+            //'{{{tableName}}}' => {{{tableName}}}::all(),
+{{/hasMany}}
+        ]);
     }
 
     public function show($id)
     {
-        return {{{name}}}::find($id);
+        return {{{name}}}::find($id)
+        {{#belongsTo}}    
+        ->with('{{{referencedTableName}}}')
+        {{/belongsTo}}
+        {{#hasMany}}           
+        //->with('{{{tableName}}}')
+        {{/hasMany}}
+        ;
     }
 
     public function edit($id)
     {
-        return view('{{{name}}}.edit', ['{{{name}}}' => {{{name}}}::find($id) ]);
+        return view('{{{name}}}.edit', [
+{{#belongsTo}} 
+            '{{{referencedTableName}}}' => {{{referencedTableName}}}::all(),
+{{/belongsTo}}
+            '{{{name}}}' => {{{name}}}::find($id)
+            {{#belongsTo}}    
+            ->with('{{{referencedTableName}}}')
+            {{/belongsTo}}
+            {{#hasMany}}           
+            //->with('{{{tableName}}}')
+            {{/hasMany}}
+         ]);
     }
 
     public function store(Request $request)
-    {
-        $input = $request->all();        
+    {              
         ${{{name}}} = new {{{name}}};
-        //${{{name}}}->update($request->all());
         {{#fields}}
-        if (isset($input['{{{field}}}'])) ${{{name}}}->{{{field}}} = $input['{{{field}}}'];                        
+        if (isset($request->{{{field}}})) ${{{name}}}->{{{field}}} = $request->{{{field}}};                        
         {{/fields}}
         
         ${{{name}}}->save();
@@ -43,13 +79,11 @@ class {{{name}}}Controller extends Controller
     
     public function update(Request $request, $id)
     {
-        $input = $request->all();
-        //update with all fields and do array ith isset
         ${{{name}}} = {{{name}}}::find($id);
-        //${{{name}}}->update($request->all());
         {{#fields}}
-        ${{{name}}}->{{{field}}} = $input['{{{field}}}'];        
+        if (isset($request->{{{field}}})) ${{{name}}}->{{{field}}} = $request->{{{field}}};                              
         {{/fields}}
+        
         ${{{name}}}->save();
         return ${{{name}}};
     }
