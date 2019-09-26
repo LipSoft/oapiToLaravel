@@ -1,0 +1,83 @@
+@extends('master')
+
+@section('content')
+
+<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="/css/my_style.css">
+
+
+<script>
+    $( document ).ready(function() {
+
+		var {{{name}}} = [];
+		@foreach(${{{capitalizedName}}} as $value)
+			{{{name}}}.push( <?php echo json_encode($value);  ?>);		
+		@endforeach
+
+		$('#{{{name}}}').DataTable( {
+			data: {{{name}}},
+			//fixedHeader: true,
+			stateSave: true,
+			stateSaveParams: function(settings, data) {
+				data.columns.forEach(function(column) {
+				delete column.visible;
+				});
+			},
+			order: [[ 0, "asc" ]],
+			responsive: {
+				details: {
+					display: $.fn.dataTable.Responsive.display.childRowImmediate,
+					type: ''
+				}
+			},
+			
+			lengthMenu: [ [ 10, 25, 50, -1], [ 10, 25, 50, "All"] ],
+			columns: [
+                {{#fields}}
+                { data: "{{{field}}}", title: "{{{field}}}" },
+                {{/fields}}
+				
+				
+			], 
+			columnDefs: [				
+			]
+		});
+
+		var table = $('#{{{name}}}').DataTable();
+    
+		$('#{{{name}}} tbody').on( 'click', 'tr', function () {
+			//console.log( table.row( this ).data().id );
+			document.location.href = '/{{{name}}}/' + table.row( this ).data().id;		
+   	 	});
+
+	});
+
+	
+
+</script>
+
+{{Session::get('request_filter_client')}}
+
+	@if(Auth::user()->role_id == 1)
+		<form action="{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{capitalizedName}}}Controller@create') {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>" method="GET">
+			<div class="topButtonDiv"><input class="submitInput" type="submit" value="Criar"></div>
+		</form>
+	@endif
+
+	<form id="filterForm" action="{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{capitalizedName}}}Controller@index') {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>" method="GET">
+		
+		{!! csrf_field() !!}
+				
+		<input id="orderbyInput" type="hidden" name="order_by" value="{{ (isset($input['order_by'])) ? $input['order_by'] : '' }}">
+		<div class="topButtonDiv"><input class="submitInput" type="submit" value="Filtrar"></div>
+	
+	</form>
+
+
+	<table id="{{{name}}}" class="display" width="100%"></table>
+
+	
+
+@endsection

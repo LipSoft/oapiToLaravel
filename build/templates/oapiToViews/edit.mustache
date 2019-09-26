@@ -2,12 +2,12 @@
 
 @section('content')
 	
-	<form action=" {{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{name}}}Controller@update', ${{{name}}}->{{{pk}}}) {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>" method="POST">
+	<form action=" {{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{capitalizedName}}}Controller@update', ${{{capitalizedName}}}->{{{pk}}}) {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>" method="POST">
 		
 		<input type="hidden" name="_method" value="put" />
 		{!! csrf_field() !!}
 		
-		{{#fields}}
+		{{#fields}}		
 		<div class="showDiv">
 			<div class="fieldDiv">{{{field}}}:</div>
 			<div class="inputDiv">
@@ -15,13 +15,26 @@
 			</div>
 		</div>
         {{/fields}}
+		{{#belongsTo}}  
+		<div class="showDiv">
+			<div class="fieldDiv">{{{tableName}}}:</div>
+			<div class="inputDiv">
+				<select name="{{{columnName}}}">
+					<option value=""></option>
+					@foreach(${{{referencedTableName}}} as $value)
+						<option {{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> (${{{tableName}}}->{{{columnName}}} == $value->id) ? 'selected' : '' {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%> value="{{$value->id}}">{{$value->name}}</option>
+					@endforeach
+				</select>
+			</div>
+		</div>   
+		{{/belongsTo}}
 
 		<div class="buttonDiv"><input class="submitInput" type="submit" value="Guardar"></div>
 
 	</form>
 		
 	<div class="clearDiv"></div>
-	<a class="buttonLink" href=" {{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{name}}}Controller@show', ${{{name}}}->{{{pk}}}) {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>">
+	<a class="buttonLink" href=" {{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{capitalizedName}}}Controller@show', ${{{name}}}->{{{pk}}}) {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>">
 		<div class="buttonDiv">Voltar</div>
 	</a>	
 

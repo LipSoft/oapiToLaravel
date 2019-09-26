@@ -1,13 +1,13 @@
 <?php
 
-namespace App;
+namespace {{{nameSpace}}};
 
 use Illuminate\Database\Eloquent\Model;
 {{#belongsTo}}    
-use App\{{{referencedTableName}}};
+use {{{nameSpace}}}\{{{referencedTableName}}};
 {{/belongsTo}}
 {{#hasMany}}    
-use App\{{{tableName}}};
+use {{{nameSpace}}}\{{{tableName}}};
 {{/hasMany}}
 
 class {{name}} extends Model
@@ -28,18 +28,18 @@ class {{name}} extends Model
     {{#belongsTo}}    
     public function {{{referencedTableName}}}()
     {
-        return $this->belongsTo('App\{{{referencedTableName}}}','{{{columnName}}}', '{{{referencedColumnName}}}' );
+        return $this->belongsTo('{{{nameSpace}}}\{{{referencedTableName}}}','{{{columnName}}}', '{{{referencedColumnName}}}' );
     }      
 
     {{/belongsTo}}
     {{#hasMany}}    
     public function {{{tableName}}}()
     {        
-        return $this->hasMany('App\{{{tableName}}}', '{{{columnName}}}', '{{{referencedColumnName}}}');
+        return $this->hasMany('{{{nameSpace}}}\{{{tableName}}}', '{{{columnName}}}', '{{{referencedColumnName}}}');
     }      
 
     {{/hasMany}}    
-    protected $table = '{{name}}';
+    protected $table = '{{lowercaseName}}';
     /**
      * Indicates if the model should be timestamped.
      */

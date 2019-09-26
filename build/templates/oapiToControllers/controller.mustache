@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace {{{nameSpace}}}\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{{{name}}};
+use {{{nameSpace}}}\{{{name}}};
 {{#belongsTo}}    
-use App\{{{referencedTableName}}};
+use {{{nameSpace}}}\{{{referencedTableName}}};
 {{/belongsTo}}
 {{#hasMany}}    
-use App\{{{tableName}}};
+use {{{nameSpace}}}\{{{tableName}}};
 {{/hasMany}}
 
 class {{{name}}}Controller extends Controller
@@ -16,19 +16,23 @@ class {{{name}}}Controller extends Controller
 
     public function index()
     {      
-        return {{{name}}}::all()
-        {{#belongsTo}}    
-        ->with('{{{referencedTableName}}}')
-        {{/belongsTo}}
-        {{#hasMany}}           
-        //->with('{{{tableName}}}')
-        {{/hasMany}}
-        ;  
+        return view('{{{lowercaseName}}}.index', [
+{{#belongsTo}} 
+            '{{{referencedTableName}}}' => {{{referencedTableName}}}::all(),
+{{/belongsTo}}
+            '{{{name}}}' => {{{name}}}::all()
+            {{#belongsTo}}    
+            ->with('{{{referencedTableName}}}')
+            {{/belongsTo}}
+            {{#hasMany}}           
+            //->with('{{{tableName}}}')
+            {{/hasMany}}
+         ]);       
     }
 
     public function create()
     {
-        return view('{{{name}}}.create', [
+        return view('{{{lowercaseName}}}.create', [
 {{#belongsTo}} 
             '{{{referencedTableName}}}' => {{{referencedTableName}}}::all(),
 {{/belongsTo}}
@@ -40,19 +44,23 @@ class {{{name}}}Controller extends Controller
 
     public function show($id)
     {
-        return {{{name}}}::find($id)
-        {{#belongsTo}}    
-        ->with('{{{referencedTableName}}}')
-        {{/belongsTo}}
-        {{#hasMany}}           
-        //->with('{{{tableName}}}')
-        {{/hasMany}}
-        ;
+        return view('{{{lowercaseName}}}.show', [
+{{#belongsTo}} 
+            '{{{referencedTableName}}}' => {{{referencedTableName}}}::all(),
+{{/belongsTo}}
+            '{{{name}}}' => {{{name}}}::find($id)
+            {{#belongsTo}}    
+            ->with('{{{referencedTableName}}}')
+            {{/belongsTo}}
+            {{#hasMany}}           
+            //->with('{{{tableName}}}')
+            {{/hasMany}}
+         ]);
     }
 
     public function edit($id)
     {
-        return view('{{{name}}}.edit', [
+        return view('{{{lowercaseName}}}.edit', [
 {{#belongsTo}} 
             '{{{referencedTableName}}}' => {{{referencedTableName}}}::all(),
 {{/belongsTo}}
@@ -74,7 +82,18 @@ class {{{name}}}Controller extends Controller
         {{/fields}}
         
         ${{{name}}}->save();
-        return ${{{name}}};
+        return view('{{{lowercaseName}}}.show', [
+{{#belongsTo}} 
+            '{{{referencedTableName}}}' => {{{referencedTableName}}}::all(),
+{{/belongsTo}}
+            '{{{name}}}' => {{{name}}}::find(${{{name}}}->{{{pk}}})
+            {{#belongsTo}}    
+            ->with('{{{referencedTableName}}}')
+            {{/belongsTo}}
+            {{#hasMany}}           
+            //->with('{{{tableName}}}')
+            {{/hasMany}}
+         ]);
     }
     
     public function update(Request $request, $id)
