@@ -15,10 +15,21 @@ class {{{name}}}Controller extends Controller
 {
 
     public function index()
-    {      
+    {     
+        ${{{name}}} = new {{{name}}};
         return view('{{{lowercaseName}}}.index', [
-            '{{{name}}}' => {{{name}}}::all()
-        ]);       
+            {{#belongsTo}} 
+            '{{{referencedTableName}}}' => {{{referencedTableName}}}::all(),
+            {{/belongsTo}}
+            '{{{name}}}' => ${{{name}}}
+            {{#belongsTo}}    
+            ->With('{{{referencedTableName}}}')
+            {{/belongsTo}}
+            {{#hasMany}}           
+            //->with('{{{tableName}}}')
+            {{/hasMany}}
+            ->get()
+         ]);                
     }
 
     public function create()

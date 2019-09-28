@@ -9,7 +9,7 @@
   },
   "servers": [
     {
-      "url": ""
+      "url": "http://localhost:3000"
     }
   ],
   "paths": {},
@@ -20,26 +20,22 @@
         "properties": {
           "nome": {
             "type": "string",
+            "x-ls": {
+              "desc": "Nome"
+            },
             "maxLength": 80
           }
         },
         "x-ls": {
-          "belongsTo": {
-            "id": {
-              "name": "PRIMARY",
-              "columnName": "id",
-              "tableName": "Armazens",
-              "referencedTableName": null,
-              "referencedColumnName": null
-            }
-          },
+          "belongsTo": {},
           "hasMany": {
             "armazem_id": {
               "name": "armazem_fk",
               "columnName": "armazem_id",
               "tableName": "Locais",
               "referencedTableName": "Armazens",
-              "referencedColumnName": "id"
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
             }
           }
         }
@@ -49,43 +45,53 @@
         "properties": {
           "nome": {
             "type": "string",
+            "x-ls": {
+              "desc": "Nome"
+            },
             "maxLength": 80
           },
           "tipo_id": {
-            "type": "integer"
+            "type": "integer",
+            "x-ls": {
+              "desc": ""
+            }
           },
           "unidade_id": {
-            "type": "integer"
+            "type": "integer",
+            "x-ls": {
+              "desc": ""
+            }
           },
           "qt_max_mov": {
-            "type": "integer"
+            "type": "integer",
+            "x-ls": {
+              "desc": "Quantidade Máxima de movimentação"
+            }
           },
           "freq_inv": {
-            "type": "integer"
+            "type": "integer",
+            "x-ls": {
+              "desc": "Frequencia de Inventário"
+            }
           }
         },
         "x-ls": {
           "belongsTo": {
-            "id": {
-              "name": "PRIMARY",
-              "columnName": "id",
-              "tableName": "Artigos",
-              "referencedTableName": null,
-              "referencedColumnName": null
-            },
             "tipo_id": {
               "name": "tipo_fk",
               "columnName": "tipo_id",
               "tableName": "Artigos",
               "referencedTableName": "Tipos",
-              "referencedColumnName": "id"
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
             },
             "unidade_id": {
               "name": "unidade_fk",
               "columnName": "unidade_id",
               "tableName": "Artigos",
               "referencedTableName": "Unidades",
-              "referencedColumnName": "id"
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
             }
           },
           "hasMany": {
@@ -94,7 +100,8 @@
               "columnName": "artigo_id",
               "tableName": "Movimentos",
               "referencedTableName": "Artigos",
-              "referencedColumnName": "id"
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
             }
           }
         }
@@ -104,30 +111,29 @@
         "properties": {
           "nome": {
             "type": "string",
+            "x-ls": {
+              "desc": "Nome"
+            },
             "maxLength": 80
           },
           "unidade": {
             "type": "string",
+            "x-ls": {
+              "desc": "Unidade"
+            },
             "maxLength": 80
           }
         },
         "x-ls": {
-          "belongsTo": {
-            "id": {
-              "name": "PRIMARY",
-              "columnName": "id",
-              "tableName": "Caracteristicas",
-              "referencedTableName": null,
-              "referencedColumnName": null
-            }
-          },
+          "belongsTo": {},
           "hasMany": {
             "caracteristica_id": {
               "name": "caracteristica_fk",
               "columnName": "caracteristica_id",
               "tableName": "Caracterizar",
               "referencedTableName": "Caracteristicas",
-              "referencedColumnName": "id"
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
             }
           }
         }
@@ -136,38 +142,42 @@
         "type": "object",
         "properties": {
           "caracteristica_id": {
-            "type": "integer"
+            "type": "integer",
+            "x-ls": {
+              "desc": ""
+            }
           },
           "artigo_id": {
-            "type": "integer"
+            "type": "integer",
+            "x-ls": {
+              "desc": ""
+            }
           },
           "valor": {
             "type": "string",
+            "x-ls": {
+              "desc": "Valor"
+            },
             "maxLength": 80
           }
         },
         "x-ls": {
           "belongsTo": {
-            "id": {
-              "name": "PRIMARY",
-              "columnName": "id",
-              "tableName": "Caracterizar",
-              "referencedTableName": null,
-              "referencedColumnName": null
-            },
             "caracteristica_id": {
               "name": "caracteristica_fk",
               "columnName": "caracteristica_id",
               "tableName": "Caracterizar",
               "referencedTableName": "Caracteristicas",
-              "referencedColumnName": "id"
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
             },
             "artigo_id": {
               "name": "caracterizar_artigos_fk",
               "columnName": "artigo_id",
               "tableName": "Caracterizar",
               "referencedTableName": "Artigos",
-              "referencedColumnName": "id"
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
             }
           },
           "hasMany": {}
@@ -177,47 +187,60 @@
         "type": "object",
         "properties": {
           "data": {
-            "type": "string"
+            "type": "string",
+            "x-ls": {
+              "desc": "Data"
+            }
           },
           "artigo_id": {
-            "type": "integer"
+            "type": "integer",
+            "x-ls": {
+              "desc": ""
+            }
           },
           "local_id": {
-            "type": "integer"
+            "type": "integer",
+            "x-ls": {
+              "desc": ""
+            }
           },
           "qt_prevista": {
-            "type": "integer"
+            "type": "integer",
+            "x-ls": {
+              "desc": "Qt. prevista"
+            }
           },
           "qt_actual": {
-            "type": "integer"
+            "type": "integer",
+            "x-ls": {
+              "desc": "Qt. Actual"
+            }
           },
           "obs": {
             "type": "string",
+            "x-ls": {
+              "desc": "Observações"
+            },
             "maxLength": 65535
           }
         },
         "x-ls": {
           "belongsTo": {
-            "id": {
-              "name": "PRIMARY",
-              "columnName": "id",
-              "tableName": "Inventarios",
-              "referencedTableName": null,
-              "referencedColumnName": null
-            },
             "artigo_id": {
               "name": "artigo_fk",
               "columnName": "artigo_id",
               "tableName": "Inventarios",
               "referencedTableName": "Artigos",
-              "referencedColumnName": "id"
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
             },
             "local_id": {
               "name": "local_fk",
               "columnName": "local_id",
               "tableName": "Inventarios",
               "referencedTableName": "Locais",
-              "referencedColumnName": "id"
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
             }
           },
           "hasMany": {}
@@ -227,32 +250,35 @@
         "type": "object",
         "properties": {
           "armazem_id": {
-            "type": "integer"
+            "type": "integer",
+            "x-ls": {
+              "desc": ""
+            }
           },
           "nome": {
             "type": "string",
+            "x-ls": {
+              "desc": "Nome"
+            },
             "maxLength": 80
           },
           "descricao": {
             "type": "string",
+            "x-ls": {
+              "desc": "Descrição"
+            },
             "maxLength": 120
           }
         },
         "x-ls": {
           "belongsTo": {
-            "id": {
-              "name": "PRIMARY",
-              "columnName": "id",
-              "tableName": "Locais",
-              "referencedTableName": null,
-              "referencedColumnName": null
-            },
             "armazem_id": {
               "name": "armazem_fk",
               "columnName": "armazem_id",
               "tableName": "Locais",
               "referencedTableName": "Armazens",
-              "referencedColumnName": "id"
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
             }
           },
           "hasMany": {
@@ -261,7 +287,8 @@
               "columnName": "local_id",
               "tableName": "Movimentos",
               "referencedTableName": "Locais",
-              "referencedColumnName": "id"
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
             }
           }
         }
@@ -270,58 +297,75 @@
         "type": "object",
         "properties": {
           "e_s": {
-            "type": "enum",
+            "type": "string",
+            "x-ls": {
+              "desc": "Entrada/Saída"
+            },
             "maxLength": 1
           },
           "artigo_id": {
-            "type": "integer"
+            "type": "integer",
+            "x-ls": {
+              "desc": ""
+            }
           },
           "local_id": {
-            "type": "integer"
+            "type": "integer",
+            "x-ls": {
+              "desc": ""
+            }
           },
           "user_id": {
-            "type": "integer"
+            "type": "integer",
+            "x-ls": {
+              "desc": ""
+            }
           },
           "data": {
-            "type": "string"
+            "type": "string",
+            "x-ls": {
+              "desc": "Data"
+            }
           },
           "qt": {
-            "type": "integer"
+            "type": "integer",
+            "x-ls": {
+              "desc": "Quantidade"
+            }
           },
           "obs": {
             "type": "string",
+            "x-ls": {
+              "desc": "Observações"
+            },
             "maxLength": 65535
           }
         },
         "x-ls": {
           "belongsTo": {
-            "id": {
-              "name": "PRIMARY",
-              "columnName": "id",
-              "tableName": "Movimentos",
-              "referencedTableName": null,
-              "referencedColumnName": null
-            },
             "artigo_id": {
               "name": "artigos_fk",
               "columnName": "artigo_id",
               "tableName": "Movimentos",
               "referencedTableName": "Artigos",
-              "referencedColumnName": "id"
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
             },
             "local_id": {
               "name": "locais_fk",
               "columnName": "local_id",
               "tableName": "Movimentos",
               "referencedTableName": "Locais",
-              "referencedColumnName": "id"
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
             },
             "user_id": {
               "name": "users_fk",
               "columnName": "user_id",
               "tableName": "Movimentos",
               "referencedTableName": "Users",
-              "referencedColumnName": "id"
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
             }
           },
           "hasMany": {}
@@ -332,26 +376,22 @@
         "properties": {
           "nome": {
             "type": "string",
+            "x-ls": {
+              "desc": "Nome"
+            },
             "maxLength": 80
           }
         },
         "x-ls": {
-          "belongsTo": {
-            "id": {
-              "name": "PRIMARY",
-              "columnName": "id",
-              "tableName": "Tipos",
-              "referencedTableName": null,
-              "referencedColumnName": null
-            }
-          },
+          "belongsTo": {},
           "hasMany": {
             "tipo_id": {
               "name": "tipo_fk",
               "columnName": "tipo_id",
               "tableName": "Artigos",
               "referencedTableName": "Tipos",
-              "referencedColumnName": "id"
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
             }
           }
         }
@@ -361,26 +401,22 @@
         "properties": {
           "nome": {
             "type": "string",
+            "x-ls": {
+              "desc": "Nome"
+            },
             "maxLength": 80
           }
         },
         "x-ls": {
-          "belongsTo": {
-            "id": {
-              "name": "PRIMARY",
-              "columnName": "id",
-              "tableName": "Unidades",
-              "referencedTableName": null,
-              "referencedColumnName": null
-            }
-          },
+          "belongsTo": {},
           "hasMany": {
             "unidade_id": {
               "name": "unidade_fk",
               "columnName": "unidade_id",
               "tableName": "Artigos",
               "referencedTableName": "Unidades",
-              "referencedColumnName": "id"
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
             }
           }
         }
@@ -390,26 +426,22 @@
         "properties": {
           "nome": {
             "type": "string",
+            "x-ls": {
+              "desc": ""
+            },
             "maxLength": 80
           }
         },
         "x-ls": {
-          "belongsTo": {
-            "id": {
-              "name": "PRIMARY",
-              "columnName": "id",
-              "tableName": "Users",
-              "referencedTableName": null,
-              "referencedColumnName": null
-            }
-          },
+          "belongsTo": {},
           "hasMany": {
             "user_id": {
               "name": "users_fk",
               "columnName": "user_id",
               "tableName": "Movimentos",
               "referencedTableName": "Users",
-              "referencedColumnName": "id"
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
             }
           }
         }

@@ -7,7 +7,7 @@
 		{!! csrf_field() !!}
 		{{#fields}}
 		<div class="showDiv">
-			<div class="fieldDiv">{{{field}}}:</div>
+			<div class="fieldDiv">{{{desc}}}:</div>
 			<div class="inputDiv">
 				<input type="text" name="{{{field}}}" value="{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%>old('{{{field}}}') ? old('{{{field}}}') : ''{{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>" size="50" maxlength="50">
 			</div>
@@ -20,7 +20,7 @@
 				<select name="{{{columnName}}}">
 					<option value=""></option>
 					@foreach(${{{referencedTableName}}} as $value)
-						<option value="{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%>$value->{{{referencedColumnName}}}{{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>">{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%>$value->nome{{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%></option>
+						<option value="{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%>$value->{{{referencedColumnName}}}{{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>">{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%>$value->{{{summaryProperty}}}{{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%></option>
 					@endforeach
 				</select>
 			</div>

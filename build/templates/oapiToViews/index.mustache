@@ -16,6 +16,8 @@
 			{{{name}}}.push( <?php echo json_encode($value);  ?>);		
 		@endforeach
 
+		//console.log({{{name}}})
+
 		$('#{{{name}}}').DataTable( {
 			data: {{{name}}},
 			//fixedHeader: true,
@@ -36,8 +38,11 @@
 			lengthMenu: [ [ 10, 25, 50, -1], [ 10, 25, 50, "All"] ],
 			columns: [
                 {{#fields}}
-                { data: "{{{field}}}", title: "{{{field}}}" },
+                { data: "{{{field}}}", title: "{{{desc}}}" },
                 {{/fields}}
+				{{#belongsTo}}
+                { data: "{{{lowerCaseReferencedTableName}}}.{{{summaryProperty}}}", title: "{{{referencedTableName}}}" },
+                {{/belongsTo}}
 				
 				
 			], 
@@ -49,7 +54,9 @@
     
 		$('#{{{name}}} tbody').on( 'click', 'tr', function () {
 			//console.log( table.row( this ).data().id );
-			document.location.href = '/{{{capitalizedName}}}/' + table.row( this ).data().id;		
+			if(table.row( this ).data()){
+				document.location.href = '/{{{capitalizedName}}}/' + table.row( this ).data().id;		
+			}			
    	 	});
 
 	});
@@ -63,14 +70,14 @@
 <div style="width: 100%; overflow: hidden;margin-top: -10px;">
 
 	<div class="menu" style="width: 150px; float: left;height: calc(100vh - 100px);">
-		{{#entities}}			
-		@if(strpos(app('request')->route()->getAction()['as'], '{{{name}}}') === 0)
-			<a class="selectedMenuLink" href="{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{capitalizedName}}}Controller@index') {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>">{{{capitalizedName}}}</a>
-		@else
-			<a class="menuLink" href="{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{capitalizedName}}}Controller@index') {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>">{{{capitalizedName}}}</a>
-		@endif	
-		</br>
-		{{/entities}}			
+	{{#entities}}			
+	@if(strpos(app('request')->route()->getAction()['as'], '{{{name}}}') === 0)
+		<a class="selectedMenuLink" href="{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{capitalizedName}}}Controller@index') {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>">{{{capitalizedName}}}</a>
+	@else
+		<a class="menuLink" href="{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{capitalizedName}}}Controller@index') {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>">{{{capitalizedName}}}</a>
+	@endif	
+	</br>
+	{{/entities}}			
 	</div>
 	<div style="margin-left: 160px; float:none;position: absolute; width:calc(100% - 180px);">
 	@if(Auth::user()->role_id == 1)
@@ -78,17 +85,7 @@
 			<div class="topButtonDiv"><input class="submitInput" type="submit" value="Criar"></div>
 		</form>
 	@endif
-
-	<form id="filterForm" action="{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{capitalizedName}}}Controller@index') {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>" method="GET">
-		
-		{!! csrf_field() !!}
-				
-		<input id="orderbyInput" type="hidden" name="order_by" value="{{ (isset($input['order_by'])) ? $input['order_by'] : '' }}">
-		<div class="topButtonDiv"><input class="submitInput" type="submit" value="Filtrar"></div>
 	
-	</form>
-
-
 	<table id="{{{name}}}" class="display" width="100%"></table>
 </div>
 	
