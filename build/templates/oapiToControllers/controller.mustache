@@ -17,60 +17,33 @@ class {{{name}}}Controller extends Controller
     public function index()
     {      
         return view('{{{lowercaseName}}}.index', [
-{{#belongsTo}} 
-            '{{{referencedTableName}}}' => {{{referencedTableName}}}::all(),
-{{/belongsTo}}
             '{{{name}}}' => {{{name}}}::all()
-            {{#belongsTo}}    
-            ->with('{{{referencedTableName}}}')
-            {{/belongsTo}}
-            {{#hasMany}}           
-            //->with('{{{tableName}}}')
-            {{/hasMany}}
-         ]);       
+        ]);       
     }
 
     public function create()
     {
         return view('{{{lowercaseName}}}.create', [
-{{#belongsTo}} 
+        {{#belongsTo}} 
             '{{{referencedTableName}}}' => {{{referencedTableName}}}::all(),
-{{/belongsTo}}
-{{#hasMany}}   
-            //'{{{tableName}}}' => {{{tableName}}}::all(),
-{{/hasMany}}
+        {{/belongsTo}}
         ]);
     }
 
     public function show($id)
     {
         return view('{{{lowercaseName}}}.show', [
-{{#belongsTo}} 
-            '{{{referencedTableName}}}' => {{{referencedTableName}}}::all(),
-{{/belongsTo}}
             '{{{name}}}' => {{{name}}}::find($id)
-            {{#belongsTo}}    
-            ->with('{{{referencedTableName}}}')
-            {{/belongsTo}}
-            {{#hasMany}}           
-            //->with('{{{tableName}}}')
-            {{/hasMany}}
-         ]);
+        ]);
     }
 
     public function edit($id)
     {
         return view('{{{lowercaseName}}}.edit', [
-{{#belongsTo}} 
+            {{#belongsTo}} 
             '{{{referencedTableName}}}' => {{{referencedTableName}}}::all(),
-{{/belongsTo}}
-            '{{{name}}}' => {{{name}}}::find($id)
-            {{#belongsTo}}    
-            ->with('{{{referencedTableName}}}')
             {{/belongsTo}}
-            {{#hasMany}}           
-            //->with('{{{tableName}}}')
-            {{/hasMany}}
+            '{{{name}}}' => {{{name}}}::find($id)
          ]);
     }
 
@@ -80,35 +53,40 @@ class {{{name}}}Controller extends Controller
         {{#fields}}
         if (isset($request->{{{field}}})) ${{{name}}}->{{{field}}} = $request->{{{field}}};                        
         {{/fields}}
+
+        {{#belongsTo}}
+        if (isset($request->{{{columnName}}})) ${{{tableName}}}->{{{referencedTableName}}}()->associate({{{referencedTableName}}}::find($request->{{{columnName}}}));                       
+        {{/belongsTo}}
         
         ${{{name}}}->save();
-        return view('{{{lowercaseName}}}.show', [
-{{#belongsTo}} 
-            '{{{referencedTableName}}}' => {{{referencedTableName}}}::all(),
-{{/belongsTo}}
+        
+         return view('{{{lowercaseName}}}.show', [
             '{{{name}}}' => {{{name}}}::find(${{{name}}}->{{{pk}}})
-            {{#belongsTo}}    
-            ->with('{{{referencedTableName}}}')
-            {{/belongsTo}}
-            {{#hasMany}}           
-            //->with('{{{tableName}}}')
-            {{/hasMany}}
          ]);
     }
     
     public function update(Request $request, $id)
     {
-        ${{{name}}} = {{{name}}}::find($id);
+        ${{{name}}} = {{{name}}}::findOrFail($id);
         {{#fields}}
         if (isset($request->{{{field}}})) ${{{name}}}->{{{field}}} = $request->{{{field}}};                              
         {{/fields}}
+
+        {{#belongsTo}}
+        if (isset($request->{{{columnName}}})) ${{{tableName}}}->{{{referencedTableName}}}()->associate({{{referencedTableName}}}::find($request->{{{columnName}}}));                       
+        {{/belongsTo}}
         
         ${{{name}}}->save();
-        return ${{{name}}};
+        return view('{{{lowercaseName}}}.show', [
+            '{{{name}}}' => ${{{name}}}
+        ]);
     }
 
     public function destroy($id)
     {
-        return {{{name}}}::destroy($id);
+        {{{name}}}::destroy($id);
+        return view('{{{lowercaseName}}}.index', [
+            '{{{name}}}' => {{{name}}}::all()
+        ]); 
     }
 }

@@ -22,7 +22,7 @@
 				<select name="{{{columnName}}}">
 					<option value=""></option>
 					@foreach(${{{referencedTableName}}} as $value)
-						<option {{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> (${{{tableName}}}->{{{columnName}}} == $value->id) ? 'selected' : '' {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%> value="{{$value->id}}">{{$value->name}}</option>
+						<option {{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> (${{{tableName}}}->{{{columnName}}} == $value->id) ? 'selected' : '' {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%> value="{{$value->id}}">{{$value->nome}}</option>
 					@endforeach
 				</select>
 			</div>
@@ -34,7 +34,7 @@
 	</form>
 		
 	<div class="clearDiv"></div>
-	<a class="buttonLink" href=" {{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{capitalizedName}}}Controller@show', ${{{name}}}->{{{pk}}}) {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>">
+	<a class="buttonLink" href=" {{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{capitalizedName}}}Controller@show', ${{{capitalizedName}}}->{{{pk}}}) {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>">
 		<div class="buttonDiv">Voltar</div>
 	</a>	
 

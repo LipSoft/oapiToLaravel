@@ -15,12 +15,12 @@
         {{/fields}}
 		{{#belongsTo}}  
 		<div class="showDiv">
-			<div class="fieldDiv">{{{tableName}}}:</div>
+			<div class="fieldDiv">{{{referencedTableName}}}:</div>
 			<div class="inputDiv">
 				<select name="{{{columnName}}}">
 					<option value=""></option>
 					@foreach(${{{referencedTableName}}} as $value)
-						<option {{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> (${{{tableName}}}->{{{columnName}}} == $value->id) ? 'selected' : '' {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%> value="{{$value->id}}">{{$value->name}}</option>
+						<option value="{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%>$value->{{{referencedColumnName}}}{{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>">{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%>$value->nome{{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%></option>
 					@endforeach
 				</select>
 			</div>

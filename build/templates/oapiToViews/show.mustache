@@ -2,26 +2,28 @@
 
 @section('content')
 
-
     {{#fields}}
     <div class="showDiv">
         <div class="fieldDiv">{{{field}}}:</div>
         <div class="textDiv">{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%>${{{capitalizedName}}}->{{{field}}} {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%></div>	    
     </div>
     {{/fields}}
+	{{#belongsTo}}  
+	<div class="showDiv">
+		<div class="fieldDiv">{{{referencedTableName}}}:</div>
+		<div class="textDiv">{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%>${{{capitalizedName}}}->{{{referencedTableName}}}->nome {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%></div>	    			
+	</div>   
+		{{/belongsTo}}
 	
-	
-	
-
 	@if(Auth::user()->role_id == 1)
-		<a class="buttonLink" href="{{ URL::action('{{{capitalizedName}}}Controller@edit', ${{{capitalizedName}}}->{{{pk}}}) }}">
+		<a class="buttonLink" href="{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{capitalizedName}}}Controller@edit', ${{{capitalizedName}}}->{{{pk}}}) {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>">
 			<div class="buttonDiv">Editar</div>
 		</a>
 	@endif
 
-	@if( (Auth::user()->role_id == 1) && (${{{capitalizedName}}}->{{{pk}}} != 1) )
+	@if(Auth::user()->role_id == 1)
 		<div class="clearDiv"></div>
-		<form id="deleteForm" action="{{ URL::action('{{{capitalizedName}}}Controller@destroy', ${{{capitalizedName}}}->{{{pk}}}) }}" method="POST">
+		<form id="deleteForm" action="{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{capitalizedName}}}Controller@destroy', ${{{capitalizedName}}}->{{{pk}}}) {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>" method="POST">
 			<input type="hidden" name="_method" value="delete" />
 			{!! csrf_field() !!}
 			<div class="buttonDiv"><input id="deleteBtn" class="submitInput" type="submit" value="Apagar"></div>
@@ -29,7 +31,7 @@
 	@endif
 		
 	<div class="clearDiv"></div>
-	<a class="buttonLink" href="{{ URL::action('{{{capitalizedName}}}Controller@index') }}">
+	<a class="buttonLink" href="{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{capitalizedName}}}Controller@index') {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>">
 		<div class="buttonDiv">Voltar</div>
 	</a>	
 
