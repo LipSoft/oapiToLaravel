@@ -65,13 +65,13 @@
           "qt_max_mov": {
             "type": "integer",
             "x-ls": {
-              "desc": "Quantidade Máxima de movimentação"
+              "desc": "Quantidade máxima de movimentação"
             }
           },
           "freq_inv": {
             "type": "integer",
             "x-ls": {
-              "desc": "Frequencia de Inventário"
+              "desc": "Frequencia de inventário"
             }
           }
         },
@@ -122,10 +122,25 @@
               "desc": "Unidade"
             },
             "maxLength": 80
+          },
+          "tipos_id": {
+            "type": "integer",
+            "x-ls": {
+              "desc": "Tipo"
+            }
           }
         },
         "x-ls": {
-          "belongsTo": {},
+          "belongsTo": {
+            "tipos_id": {
+              "name": "FK_tipos_id",
+              "columnName": "tipos_id",
+              "tableName": "Caracteristicas",
+              "referencedTableName": "Tipos",
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
+            }
+          },
           "hasMany": {
             "caracteristica_id": {
               "name": "caracteristica_fk",
@@ -207,7 +222,7 @@
           "qt_prevista": {
             "type": "integer",
             "x-ls": {
-              "desc": "Qt. prevista"
+              "desc": "Qt. Prevista"
             }
           },
           "qt_actual": {
@@ -389,6 +404,14 @@
               "name": "tipo_fk",
               "columnName": "tipo_id",
               "tableName": "Artigos",
+              "referencedTableName": "Tipos",
+              "referencedColumnName": "id",
+              "summaryProperty": "nome"
+            },
+            "tipos_id": {
+              "name": "FK_tipos_id",
+              "columnName": "tipos_id",
+              "tableName": "Caracteristicas",
               "referencedTableName": "Tipos",
               "referencedColumnName": "id",
               "summaryProperty": "nome"

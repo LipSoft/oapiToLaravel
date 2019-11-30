@@ -5,6 +5,10 @@
 	<form action="{{=<% %>=}}{<%={{ }}=%>{{=<% %>=}}{<%={{ }}=%> URL::action('{{{capitalizedName}}}Controller@store') {{=<% %>=}}}<%={{ }}=%>{{=<% %>=}}}<%={{ }}=%>" method="POST">
 		
 		{!! csrf_field() !!}
+		<div class="showDiv">
+			<div class="fieldDiv">Entidade:</div>
+			<div class="textDiv">{{{capitalizedName}}}</div>	    
+		</div>
 		{{#fields}}
 		<div class="showDiv">
 			<div class="fieldDiv">{{{desc}}}:</div>
